@@ -238,7 +238,7 @@ namespace VIGO_ERP_2._0.Controllers
             return ds;
         }
 
-        public static int CheckPartyExists(string partyCode, string compId) //no need of this its use for party wise login
+        public static int CheckPartyExists(string partyCode, string compId) 
         {
             try
             {
