@@ -12,7 +12,7 @@ namespace VIGO_ERP_2._0.Controllers
 {
     public class SuperAdminController : Controller
     {
-        // GET: SuperAdmin
+        // GET: SuperAdmin by Subham
         public ActionResult Index()
         {
             return View();
