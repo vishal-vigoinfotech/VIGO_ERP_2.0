@@ -1,0 +1,366 @@
+﻿@{
+    ViewBag.Title = "CompanySetup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+
+
+    .section {
+        padding: 10px 30px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .buttons_setup {
+        display: flex;
+        justify-content: end;
+        padding: 10px 30px;
+    }
+
+        .buttons_setup .buttons {
+            padding: 25px 30px;
+            text-align: right;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .buttons_setup button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .buttons_setup .btn-cancel {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+            .buttons_setup .btn-cancel:hover {
+                background-color: #cbd5e0;
+                transform: translateY(-2px);
+            }
+
+        .buttons_setup .btn-save {
+            background: linear-gradient(120deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+
+            .buttons_setup .btn-save:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+            }
+
+    @@media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .buttons_setup .buttons {
+            text-align: center;
+        }
+
+        .buttons_setup button {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .heading-employee,
+        .heading-client,
+        .heading-crm {
+            font-size: 1.4em;
+            padding: 8px 0 18px 0;
+        }
+    }
+
+    .setup_footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .changes_update {
+        padding-left: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    #modifiedAt, #modifiedBy {
+        color: rgb(55 48 163 / var(--tw-bg-opacity, 1));
+        font-size: 14px;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <!-- Employee Settings -->
+    <div class="section">
+        <div class="heading-employee heading">Employee Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Emp Code Prefix</label>
+                <input type="text" id="codeprifx" name="CompEmpCodePrefix" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_codeprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Confirm Code Sr. No.</label>
+                <input type="text" id="codesuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_codesuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Temp Emp Code Prefix</label>
+                <input type="text" id="tcodeprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_tcodeprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Temp Emp Code Sr. No.</label>
+                <input type="text" id="tcodesuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_tcodesuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Settings -->
+    <div class="section">
+        <div class="heading-client heading">Client Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="required">Client Code Prefix</label>
+                <input type="text" id="tclientprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_tclientprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Client Code Sr. No.</label>
+                <input type="text" id="tclientsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_tclientsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Site Code Prefix</label>
+                <input type="text" id="tsiteprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_tsiteprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Site Code Sr. No.</label>
+                <input type="text" id="tsitesuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_tsitesuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CRM Settings -->
+    <div class="section">
+        <div class="heading-crm heading">CRM Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Enquiry Prefix</label>
+                <input type="text" id="enquiryprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_enquiryprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Enquiry Sr. No.</label>
+                <input type="text" id="enquirysuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_enquirysuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Complaint Prefix</label>
+                <input type="text" id="complaintprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_complaintprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Complaint Sr. No.</label>
+                <input type="text" id="complaintsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_complaintsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Feedback Prefix</label>
+                <input type="text" id="feedbackprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_feedbackprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Feedback Sr. No.</label>
+                <input type="text" id="feedbacksuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_feedbacksuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Tendor Prefix</label>
+                <input type="text" id="tendorprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_tendorprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Tendor Sr. No.</label>
+                <input type="text" id="tendorsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_tendorsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Lead Prefix</label>
+                <input type="text" id="leadprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_leadprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Lead Sr. No.</label>
+                <input type="text" id="leadsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_leadsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Party Prefix</label>
+                <input type="text" id="partyprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_partyprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Party Sr. No.</label>
+                <input type="text" id="partysuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_partysuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Contract Prefix</label>
+                <input type="text" id="Contractprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_Contractprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Contract Sr. No.</label>
+                <input type="text" id="Contractsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_Contractsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Movement / Posting Order Prefix</label>
+                <input type="text" id="PoPrifix" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_PoPrifix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label>Movement / Posting Order Sr. No.</label>
+                <input type="text" id="Posuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_Posuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Designation Settings -->
+    <div class="section">
+        <div class="heading-client heading">Designation Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="required">Desgination Prefix</label>
+                <input type="text" id="Designationprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_Designationprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Designation Sr. No.</label>
+                <input type="text" id="Designationsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_Designationsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Settings -->
+    <div class="section">
+        <div class="heading-client heading">Inventory Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="required" for="Vendorprifx">Vendor Prefix</label>
+                <input type="text" id="Vendorprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_Vendorprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label class="required">Vendor Sr. No.</label>
+                <input type="text" id="Vendorsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_Vendorsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Item Settings -->
+    <div class="section">
+        <div class="heading-client heading">Item Settings</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="required" for="Itemprifx">Item Prefix</label>
+                <input type="text" id="Itemprifx" onkeypress="return ValidateAlpha1(event);" />
+                <span id="lblerr_Itemprifx" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+                <label for="Vendorsuffix">Item Sr. No.</label>
+                <input type="text" id="Itemsuffix" onkeypress="return isNumber(event);" />
+                <span id="lblerr_Itemsuffix" style="display: none; height: 5px; color: red;"></span>
+            </div>
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="setup_footer">
+        <div class="changes_update">
+            <p>Modified By : <b id="modifiedBy"></b></p>
+            <p>Modified At : <b id="modifiedAt"></b></p>
+        </div>
+        <div class="buttons_setup">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="button" class="btn-save" onclick="SubmitCompanySetup(this);return false;">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Content/Javascript/Setting/CompanySetup.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Store original values
+            $('input[type="text"]').each(function () {
+                $(this).data('original', $(this).val());
+            });
+
+
+
+            $('.btn-cancel').on('click', function () {
+                if (confirm('Discard all changes?')) {
+                    $('input[type="text"]').each(function () {
+                        $(this).val($(this).data('original') || '');
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,12 @@
+﻿.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+bin/
+obj/
+packages/
+TestStore/
+*.log
+*.sqlite
+VSWorkspaceState.json
