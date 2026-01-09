@@ -1,0 +1,147 @@
+﻿
+@{
+    Layout = null;
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #1f1f2e, #12121a);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+    }
+
+    .offline-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .offline-card {
+        max-width: 420px;
+        margin: auto;
+        background: rgba(255,255,255,.08);
+        backdrop-filter: blur(18px);
+        border-radius: 18px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+
+    .wifi-icon {
+        position: relative;
+        font-size: 64px;
+        margin-bottom: 20px;
+        color: #ff4d4f;
+    }
+
+        .wifi-icon .slash {
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #ff4d4f;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 15px;
+        color: #dcdcdc;
+        margin-bottom: 25px;
+    }
+
+    button {
+        background: linear-gradient(135deg, #ff4d4f, #c0392b);
+        border: none;
+        padding: 12px 26px;
+        border-radius: 30px;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        transition: transform .25s ease;
+    }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+    small {
+        display: block;
+        margin-top: 18px;
+        color: #aaa;
+    }
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>No Internet Connection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="no-internet.css">
+</head>
+<body>
+
+    <div class="offline-container">
+        <div class="offline-card">
+            <div class="wifi-icon">
+                <i class="fas fa-wifi"></i>
+                <span class="slash"></span>
+            </div>
+
+            <h1>No Internet Connection</h1>
+            <p>
+                You’re offline right now.
+                Please check your network connection.
+            </p>
+
+            <button onclick="retryConnection()">
+                <i class="fas fa-rotate"></i> Retry
+            </button>
+
+            <small>Waiting for network…</small>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script>
+    function retryConnection() {
+
+        if (navigator.onLine) {
+
+            // Go to dashboard only if not already there
+            if (location.pathname !== "/Admin/Dashboard") {
+                location.href = "/Admin/Dashboard";
+            }
+
+        } else {
+
+            // Redirect to NoInternet page only if not already there
+            if (location.pathname !== "/Admin/NoInternet") {
+                location.href = "/Admin/NoInternet";
+            }
+        }
+    }
+
+    // When internet comes back
+    window.addEventListener("online", function () {
+        retryConnection();
+    });
+</script>

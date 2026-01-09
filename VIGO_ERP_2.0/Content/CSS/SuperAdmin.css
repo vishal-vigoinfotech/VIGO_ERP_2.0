@@ -1,0 +1,164 @@
+﻿/* .cmp-btn {
+        background: var(--primary);
+    }*/
+#payRollSearch {
+    height: 34px;
+    border: none;
+    border-bottom: 1.5px solid var(--primary);
+    font-size: 12px;
+}
+
+    #payRollSearch:focus {
+        outline: none !important;
+        border: none !important;
+        border-bottom: 1.5px solid var(--primary) !important;
+        background: var(--white);
+        /*box-shadow: 0 0 0 5px rgba(67, 97, 238, 0.15);*/
+    }
+.tabulator {
+    border-right: none !important;
+    font-size: 11px !important;
+}
+.search-icon {
+    position: absolute;
+    left: 1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+.status-btn {
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.status-btn.active {
+    color: green;
+    background-color: white;
+}
+
+.status-btn.inactive {
+    color: red;
+    background-color: white;
+}
+
+.tabulator {
+    border: none;
+}
+
+.tabulator {
+    border-right: none !important;
+}
+
+
+    .tabulator .tabulator-header .tabulator-col {
+        background-color: var(--primary) !important;
+    }
+
+        .tabulator .tabulator-header .tabulator-col {
+            background: transparent;
+            color: white;
+        }
+
+            .tabulator .tabulator-header .tabulator-col:hover {
+                background-color: var(--primary) !important;
+            }
+
+.tabulator-row {
+    background: white !important;
+    border-bottom: 0.5px solid #666
+}
+
+.tabulator .tabulator-footer .tabulator-footer-contents {
+    background: white !important;
+}
+
+.glass-container {
+    position: relative;
+    /*width: 264px;*/
+}
+
+    .glass-container input {
+        width: 100%;
+        padding: 28px 16px 1px;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px); /* Safari support */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: black;
+        outline: none;
+        transition: all 0.3s;
+        border-color: rgba(255, 255, 255, 0.5);
+        /*box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);*/
+        border-bottom: 1.5px solid var(--primary-hover);
+    }
+
+.glass-select-container {
+    border-bottom: 1.5px solid var(--primary);
+}
+/*  .glass-container input:focus {
+                border-color: rgba(255, 255, 255, 0.5);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }*/
+.glass-container label {
+    position: absolute;
+    left: 16px;
+    top: 25px;
+    font-size: 11px;
+    /*color: rgba(255, 255, 255, 0.7);*/
+    color: black;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.glass-container span {
+    font-size: 9px;
+}
+
+.glass-container input:focus ~ label,
+.glass-container input:valid ~ label {
+    top: 7px;
+    font-size: 12px;
+    /*color: rgba(255, 255, 255, 0.9);*/
+}
+
+.glass-container input.default-active ~ label {
+    top: 10px;
+    font-size: 11px;
+}
+
+.glass-container input::placeholder {
+    color: transparent;
+}
+
+.cmp-Sub-modal-header {
+    background: var(--primary);
+    border-radius: 10px;
+    height: 28px;
+}
+
+.radio-design-cmp {
+    font-size: 12px;
+}
+
+.div-radio-input {
+    height: 20px;
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+}
+
+    .div-radio-input input {
+        height: 18px;
+        width: 23px;
+    }
+
+        .div-radio-input input:checked {
+            accent-color: var(--primary);
+        }
+

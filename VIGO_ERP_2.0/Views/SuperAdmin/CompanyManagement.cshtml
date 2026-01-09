@@ -1,0 +1,178 @@
+﻿@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-lg-6">
+        <h6>Active/Inactive Clients</h6>
+    </div>
+    <div class="col-sm-6 col-lg-6 text-end">
+        <h6 class="text-success">Manage Company Management</h6>
+    </div>
+    <div class="g.col-12 bg-white p-2 mt-3">
+        <h6>Manage Company Details</h6>
+        <button type="button" class="text-white cmp-btn no-hover-effect" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Company</button>
+        @*<button class="btn text-white cmp-btn no-hover-effect">Add Company</button>*@
+    </div>
+    <div class="col-sm-12 bg-white p-1 mt-3">
+        <h6 class="mb-3">Inactive/Active Company Report Details</h6>
+        @*<button id="download-xlsx" class="mb-3 cmp_excel_btn">Excel</button>*@
+        <div id="divCompanyDetails" style="font-size: var(--text-size);"></div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:90vw !important;">
+
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container-fluid">
+                    <div class="row cmp-Sub-modal-header mb-2">
+                        <h6 class="text-dark mt-1 text-white">Company Details</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtCompanyCode" name="CompanyCode" required onchange="validateCompanyCode()" />
+                            <label for="email">Company Code <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtCompanyCode" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtCompanyName" name="CompanyName" required onchange="validateCompanyName()" />
+                            <label for="email">Company name <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtCompanyName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" name="CompanyAddress" required />
+                            <label for="email">Address <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtAddress" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" name="OtherDetails" required />
+                            <label for="email">Other details <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtOtherDetails" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @* Second Row *@
+                    <div class="row cmp-Sub-modal-header mt-3 mb-2">
+                        <h6 class="text-dark mt-1 text-white">Admin User Details</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtUserName" name="UserName" required onchange="validateCompanyUsername()" />
+                            <label for="email">User Name <span class="text-danger">*</span> (For Login) </label>
+                            <span id="lblerr_txtUserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtFirstName" name="FirstName" required onchange="validateCompanyFname()" />
+                            <label for="email">First name <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtFirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtLastName" name="LastName" required onchange="validateCompanyLname()" />
+                            <label for="email">Last name <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtlastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="email" name="Email" required onchange="ValidateEmail()" />
+                            <label for="email">Email Address<span class="text-danger">*</span></label>
+                            <span id="lblerr_email" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtContact" name="Contact" required onchange="validateCompanyContact()" />
+                            <label for="email">Contact No <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtContact" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @* Third Row *@
+                    <div class="row cmp-Sub-modal-header mt-3 mb-2">
+                        <h6 class="text-dark mt-1 text-white">License Details</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtLicense" name="License" required onchange="validateNoLic()" />
+                            <label for="email">No. of License <span class="text-danger">*</span> </label>
+                            <span id="lblerr_txtNoLic" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="date" id="txtStartDate" name="StartDate" required onchange="validateStartDate()" />
+                            <label for="email" style="top: 5px;">Activation Date <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtStartDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="date" id="txtEndDate" name="EndDate" required onchange="validateEndDate()" />
+                            <label for="email" style="top: 5px;">Deactivation Date <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtEndDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3  glass-container">
+                            <select class="form-control" name="ModeOFPayment" id="ddlModeOfPay" onchange="validateModeOfpay()" style="border: none; border-radius: 0px; border-bottom: 1.5px solid var(--primary); margin-top: 17px; font-size: 12px; ">
+                                <option value="-1">Mode Of Payment(Subscription Type)</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Quarterly">Quarterly</option>
+                                <option value="Yearly">Yearly</option>
+                            </select>
+                            <span id="lblerr_txtModeOfPay" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                            <input type="text" id="txtAPK" name="APK" required onchange="validateAPK()" />
+                            <label for="email">APK <span class="text-danger">*</span></label>
+                            <span id="lblerr_txtAPK" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @* Fourth Row *@
+                    <div class="row cmp-Sub-modal-header mt-3 mb-2">
+                        <h6 class="text-dark mt-1 text-white">
+                            Conditional Settings
+                        </h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 col-lg-3 radio-design-cmp">
+                            <label for="email">Aadhaar Base Recruitment <span class="text-danger">*</span> (For Login) </label>
+                            <div class="div-radio-input">
+                                <input type="radio" id="AadhaarN" name="Aadhaar" value="0" checked /> No
+                                <input type="radio" id="AadhaarY" name="Aadhaar" value="1" /> Yes
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-2 radio-design-cmp">
+                            <label for="email">Bank Verification <span class="text-danger">*</span></label>
+                            <div class="div-radio-input">
+                                <input type="radio" id="BankN" name="Bank" value="0" checked /> No
+                                <input type="radio" id="BankY" name="Bank" value="1" /> Yes
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-2 radio-design-cmp">
+                            <label for="email">UAN Verification <span class="text-danger">*</span></label>
+                            <div class="div-radio-input">
+                                <input type="radio" id="UANN" name="UAN" value="0" checked /> No
+                                <input type="radio" id="UANY" name="UAN" value="1" /> Yes
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-2 radio-design-cmp">
+                            <label for="email">Client Validation<span class="text-danger">*</span></label>
+                            <div class="div-radio-input">
+                                <input type="radio" id="ClientVN" name="ClientV" value="0" checked /> No
+                                <input type="radio" id="ClientVY" name="ClientV" value="1" /> Yes
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-lg-2 radio-design-cmp">
+                            <label for="email">Recruitment Validation <span class="text-danger">*</span></label>
+                            <div class="div-radio-input">
+                                <input type="radio" id="RecruitmentVN" name="RecruitmentV" value="0" checked /> No
+                                <input type="radio" id="RecruitmentVY" name="RecruitmentV" value="1" /> Yes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cmp_excel_btn" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn text-white" id="btnCreateCompany" onclick="CreateCompany(this);return false" style="background-color:var(--primary);">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Content/Javascript/SuperAdmin/CompanyManagement.js"></script>
+

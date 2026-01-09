@@ -1,0 +1,214 @@
+﻿@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="~/Content/Javascript/SuperAdmin/SystemMasters.js"></script>
+<style>
+    .cmp-btn {
+        background: var(--primary);
+    }
+
+    .status-btn {
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .status-btn.active {
+            color: green;
+            background-color: white;
+        }
+
+        .status-btn.inactive {
+            color: red;
+            background-color: white;
+        }
+
+    .tabulator {
+        border: none;
+    }
+
+        .tabulator .tabulator-header {
+            background-color: var(--primary);
+        }
+
+            .tabulator .tabulator-header .tabulator-col {
+                background: transparent;
+                color: white;
+            }
+
+                .tabulator .tabulator-header .tabulator-col:hover {
+                    background-color: inherit !important;
+                }
+
+    .tabulator-row {
+        background: white !important;
+        border-bottom: 0.5px solid #666;
+    }
+
+    .tabulator .tabulator-footer .tabulator-footer-contents {
+        background: white !important;
+    }
+
+    .glass-container {
+        position: relative;
+        /*width: 264px;*/
+    }
+
+        .glass-container input {
+            width: 100%;
+            padding: 20px 16px 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: black;
+            outline: none;
+            transition: all 0.3s;
+            border-color: rgba(255, 255, 255, 0.5);
+            /*box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);*/
+            border-bottom: 1.5px solid var(--primary);
+        }
+
+    .glass-select-container {
+        border-bottom: 1.5px solid var(--primary);
+    }
+    /*  .glass-container input:focus {
+                border-color: rgba(255, 255, 255, 0.5);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }*/
+    .glass-container label {
+        position: absolute;
+        left: 16px;
+        top: 20px;
+        font-size: 12px;
+        /*color: rgba(255, 255, 255, 0.7);*/
+        color: black;
+        pointer-events: none;
+        transition: 0.3s;
+    }
+
+    .glass-container span {
+        font-size: 9px;
+    }
+
+    .glass-container input:focus ~ label,
+    .glass-container input:valid ~ label {
+        top: 5px;
+        font-size: 12px;
+        /*color: rgba(255, 255, 255, 0.9);*/
+    }
+
+    .glass-container input.default-active ~ label {
+        top: 5px;
+        font-size: 12px;
+    }
+
+    .glass-container input::placeholder {
+        color: transparent;
+    }
+
+    .cmp-Sub-modal-header {
+        background: var(--primary);
+        border-radius: 10px;
+        height: 28px;
+    }
+
+    .radio-design-cmp {
+        font-size: 12px;
+    }
+
+    .div-radio-input {
+        height: 20px;
+        padding: 3px;
+        display: flex;
+        flex-direction: row;
+    }
+
+        .div-radio-input input {
+            height: 18px;
+            width: 23px;
+        }
+
+            .div-radio-input input:checked {
+                accent-color: var(--primary);
+            }
+
+    .text-danger {
+        color: red;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: flex-end; /* RIGHT SIDE */
+        margin-bottom: 10px;
+    }
+
+    #search-box {
+        width: 250px;
+    }
+</style>
+
+<div class="row">
+    <!-- Header -->
+    <div class="col-sm-6 col-lg-6">
+        <h6>Manage Country</h6>
+
+    </div>
+    <div class="col-sm-6 col-lg-6 text-end">
+        <span>Master Management</span>&nbsp;>&nbsp;
+        <span class="text-success">Manage Country</span>
+    </div>
+
+    <!-- Country Form -->
+    <div class="col-12 bg-white p-3 mt-3 rounded">
+        <h6>Country Form</h6>
+        <div class="row">
+            <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                <input type="text" id="txtCountryCode" required />
+                <label>Country Code<span class="text-danger">*</span></label>
+                <span class="lblerr_txtCountryCode text-danger"></span>
+            </div>
+
+            <div class="col-sm-6 col-md-3 col-lg-3 glass-container">
+                <input type="text" id="txtCountryName" required />
+                <label>Country Name<span class="text-danger">*</span></label>
+                <span class="lblerr_txtCountryName text-danger"></span>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end gap-2">
+                <button id="btnSubmit" class="btn btn-success" onclick="CreateCountry(this);return false;">Submit</button>
+                <button id="btnUpdate" class="btn btn-success" onclick="UpdateCountry()">Update</button>
+            </div>
+        </div>
+    </div>
+    <!-- Country List -->
+    <div class="col-sm-12 bg-white p-3 mt-3 rounded">
+
+        <!-- Header Row -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0">Country List</h6>
+
+            <input type="text" id="searchBox" class="form-control form-control-sm" placeholder="Search..." style="width: 220px;">
+        </div>
+        <!-- Tabulator -->
+        <div id="divCountryList"></div>
+        <!-- Pagination Info -->
+        <div id="pageInfo" class="mt-2 text-muted fs-12"></div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        PageFunction();
+        GetCountryDetails("VIEW");
+    });
+</script>
+
